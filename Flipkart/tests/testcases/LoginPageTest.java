@@ -25,14 +25,19 @@ public class LoginPageTest extends TestBase {
 	@Test(priority = 2)
 	public void validateLoginTest() {
 		homePage = loginPage.clickOnLoginButton(properties.getProperty("username"), properties.getProperty("password"));
-		// Assert.assertEquals(homePage.verifyUser(), "gaurav");
+		Assert.assertEquals(loginPage.verifyUserIsLoggedIn(), "gaurav");
 	}
 
-	@Test(priority = 3)
+	@Test(priority=3)
+	public void validateLogoutTest() {
+		validateLoginTest();
+		Assert.assertEquals(loginPage.verifySuccessfulLogout(), "Login");
+	}
+	
+	@Test(priority = 4)
 	public void validateCloseLoginWindowTest() {
 		homePage = loginPage.closeLoginWindow();
-		Assert.assertEquals(homePage.verifyHomePageTitle(),
-				"Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Exclusive Offers!");
+		Assert.assertEquals(homePage.verifyHomePageTitle(), "Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Exclusive Offers!");
 	}
 
 	@BeforeMethod

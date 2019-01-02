@@ -49,6 +49,6 @@ public class ViewDetailsPageTest extends TestBase{
 
 	@AfterMethod
 	public void teardown() {
-		driver.quit();
+		//driver.quit();
 	}
 }

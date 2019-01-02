@@ -2,6 +2,9 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import base.TestBase;
 
@@ -24,26 +27,41 @@ public class LoginPage extends TestBase {
 	}
 
 	public HomePage clickOnLoginButton(String username, String password) {
-		// Clear text fields before sending data
-		emailTextBox.clear();
-		emailTextBox.sendKeys(username);
-		passwordTextBox.clear();
-		passwordTextBox.sendKeys(password);
-		loginBtn.click();
-		return new HomePage();
+		try {
+			// Clear text fields before sending data
+			emailTextBox.clear();
+			emailTextBox.sendKeys(username);
+			passwordTextBox.clear();
+			passwordTextBox.sendKeys(password);
+			loginBtn.click();
+			return new HomePage();
+		} catch (Exception e) {
+			loginWindowCloseBtn.click();
+			driver.navigate().refresh();
+			return new HomePage();
+		}
 	}
 
+	public String verifyUserIsLoggedIn() {
+		WebElement usernameLabel = driver.findElement(By.xpath("//div[@class='_2cyQi_']"));
+		return usernameLabel.getText();
+	}
+	
+	public String verifySuccessfulLogout() {
+		WebElement usernameLabel = driver.findElement(By.xpath("//div[@class='_2cyQi_']"));
+		Actions logout = new Actions(driver);
+		logout.moveToElement(usernameLabel).build().perform();
+		WebElement logoutLink = driver.findElement(By.xpath("//div[contains(text(),'Logout')]"));
+		WebDriverWait wait = new WebDriverWait(driver, 1);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Logout')]")));
+		logoutLink.click();
+		// Locate login text in login modal window
+		WebElement loginText = driver.findElement(By.xpath("//span[@class='_1hgiYz']//span[contains(text(),'Login')]"));
+		return loginText.getText();
+	}
+	
 	public HomePage closeLoginWindow() {
 		loginWindowCloseBtn.click();
 		return new HomePage();
-	}
-
-	public void verifyUser() {
-		if (loginLink.getText().equalsIgnoreCase("Login & Signup")) {
-			System.out.println("User is not logged in.");
-		} else {
-			WebElement usernameLabel = driver.findElement(By.xpath("//div[@class='_2cyQi_']"));
-			usernameLabel.getText();
-		}
 	}
 }

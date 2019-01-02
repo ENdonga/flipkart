@@ -49,10 +49,10 @@ public class MobilePageTest extends TestBase{
 		Assert.assertTrue(mobilePage.verifyMototolaCheckbox(), "Check box is not displayed");
 	}
 
-	@Test(priority = 7)
-	public void verifyMotorolaCheckBoxTest() {
-		mobilePage.clickMotorolaCheckBox();
-	}
+//	@Test(priority = 7)
+//	public void verifyMotorolaCheckBoxTest() {
+//		mobilePage.clickMotorolaCheckBox();
+//	}
 
 	@BeforeMethod
 	public void setup() {

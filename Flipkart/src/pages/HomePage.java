@@ -9,14 +9,14 @@ import base.TestBase;
 public class HomePage extends TestBase {
 
 	// Create an object repository for the home page
-	WebElement loginLink = driver.findElement(By.xpath("//a[contains(text(),'Login & Signup')]"));
+	
 	WebElement electronicsMenuLink = driver.findElement(By.xpath("//ul[@class='_114Zhd']/li[1]/span[1]/*[1]"));
 	// locate sub menus under electronics menu
 	// WebElement navBar = driver.findElement(By.xpath("//ul[@class='_114Zhd']"));
 	WebElement mobileMenuLink = driver.findElement(By.xpath("//a[@title='Mobiles']"));
 	// WebElement usernameLabel =
 	// driver.findElement(By.xpath("//div[@class='_2cyQi_']"));
-
+	
 	public HomePage() {
 
 	}
@@ -28,7 +28,7 @@ public class HomePage extends TestBase {
 	public boolean verifyElectronicsMenuLink() {
 		return electronicsMenuLink.isDisplayed();
 	}
-
+	
 	public MobilePage clickOnMobileMenu() {
 		Actions action = new Actions(driver);
 		action.moveToElement(electronicsMenuLink).build().perform();
